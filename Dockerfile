@@ -2,8 +2,12 @@ FROM ubuntu:16.04
 LABEL maintainer="David Manouchehri"
 
 RUN apt-get update && apt-get dist-upgrade -y && \
-    apt-get install -y git cmake build-essential clang ca-certificates curl \
-    unzip libboost-dev python-dev python-pip && apt-get clean
+    apt-get install -y git cmake build-essential ca-certificates curl wget  \
+    software-properties-common unzip libboost-dev python-dev python-pip && apt-get clean
+
+RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
+    apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-6.0 main" && \
+    apt-get update && apt-get install -y clang-6.0 && apt-get clean
 
 # get and install the latest z3 relesae
 RUN cd /tmp && \
