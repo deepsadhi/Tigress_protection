@@ -7,7 +7,8 @@ RUN apt-get update && apt-get dist-upgrade -y && \
 
 RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
     apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-6.0 main" && \
-    apt-get update && apt-get install -y clang-6.0 && apt-get clean
+    apt-get update && apt-get install -y clang-6.0 && apt-get clean && \
+    cd /usr/bin && ln -s clang-6.0 clang && ln -s clang++-6.0 clang++
 
 # get and install the latest z3 relesae
 RUN cd /tmp && \
